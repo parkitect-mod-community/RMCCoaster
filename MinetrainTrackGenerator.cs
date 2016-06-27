@@ -167,16 +167,21 @@ public class MinetrainTrackGenerator : MeshGenerator
                 SupportBeamExtruder.extrude (right - binormal * crossBeamOffset, binormal * -1f, normal);
                 SupportBeamExtruder.end ();
 
+                float bottom = Mathf.FloorToInt (left.y);
+                if (bottom > Mathf.FloorToInt (right.y)) {
+                    bottom = Mathf.FloorToInt (right.y);
+                }
+
                 SupportBeamExtruder.extrude (left, normal, binormal);
-                SupportBeamExtruder.extrude (new Vector3 (left.x, Mathf.FloorToInt (left.y), left.z), normal, binormal);
+                SupportBeamExtruder.extrude (new Vector3 (left.x, bottom, left.z), normal, binormal);
                 SupportBeamExtruder.end ();
 
                 SupportBeamExtruder.extrude (right, normal, binormal);
-                SupportBeamExtruder.extrude (new Vector3 (right.x, Mathf.FloorToInt (right.y), right.z), normal, binormal);
+                SupportBeamExtruder.extrude (new Vector3 (right.x, bottom, right.z), normal, binormal);
                 SupportBeamExtruder.end ();
 
-                SupportBottomBeamExtruder.extrude (new Vector3 (left.x, Mathf.FloorToInt (left.y), left.z) + binormal * (.5f / 2.0f), binormal * -1f, Vector3.down);
-                SupportBottomBeamExtruder.extrude (new Vector3 (right.x, Mathf.FloorToInt (right.y), right.z) - binormal * (.5f / 2.0f), binormal * -1f, Vector3.down);
+                SupportBottomBeamExtruder.extrude (new Vector3 (left.x, bottom, left.z) + new Vector3(binormal.x,0,binormal.z) * (.5f / 2.0f), binormal * -1f, Vector3.down);
+                SupportBottomBeamExtruder.extrude (new Vector3 (right.x, bottom, right.z) - new Vector3(binormal.x,0,binormal.z) * (.5f / 2.0f), binormal * -1f, Vector3.down);
                 SupportBottomBeamExtruder.end ();
             
 

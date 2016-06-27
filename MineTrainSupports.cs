@@ -1,9 +1,24 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class MineTrainSupports : Support
 {
+    protected struct SupportProxy
+    {
+        public bool IsActive;
+        public GameObject SupportRef;
+        public SupportProxy(bool isActive, GameObject refrence)
+        {
+            this.IsActive = isActive;
+            this.SupportRef = refrence;
+        }
+    }
+
     protected GameObject instance;
+
+
+    private Dictionary<BoundingVolume,SupportProxy> supportProxy = new Dictionary<BoundingVolume,SupportProxy> ();
 
     public float x;
 
@@ -24,16 +39,19 @@ public class MineTrainSupports : Support
         this.instance.transform.localPosition = Vector3.zero;
         this.instance.transform.localRotation = Quaternion.identity;
 
+        this.instance.gameObject.AddComponent<MeshFilter> ();
+        this.instance.gameObject.AddComponent<MeshRenderer> ();
+        this.instance.isStatic = true;
+
     }
 
     protected override void build ()
     {
-
-
+       
         int index = 0;
         base.build ();
 
-        Vector3 position = new Vector3((int)this.x + 0.5f, this.y, (int)this.z + 0.5f);
+        Vector3 position = new Vector3((int)this.x + 0.5f, this.y - .2f, (int)this.z + 0.5f);
         LandPatch terrain = GameController.Instance.park.getTerrain(position);
         if (terrain == null)
             return;
@@ -72,17 +90,47 @@ public class MineTrainSupports : Support
             else
                 support.transform.Rotate (Vector3.forward, ((index + 4) % 4) * 90f);
 
-            support.GetComponent<Renderer> ().sharedMaterial = baseMaterial;
+            //support.GetComponent<Renderer> ().sharedMaterial = baseMaterial;
             GameObjectHelper.SetUV (support, 14, 15);
 
-            BoundingBox boundingBox2 = support.AddComponent<BoundingBox>();
+            BoundingBox boundingBox2 = this.instance.AddComponent<BoundingBox>();
             boundingBox2.layers = BoundingVolume.Layers.Support;
             boundingBox2.setBounds(new Bounds(Vector3.up / 2f, Vector3.one));
             boundingBox2.setManuallyPositioned();
             boundingBox2.setPosition(position, support.transform.rotation);
             this.boundingVolumes.Add(boundingBox2);
+
+            supportProxy.Add (boundingBox2, new SupportProxy(true,support));
+            support.SetActive (false);
+
+
+        }
+      
+        RebuildMesh ();
+       
+
+    }
+
+    private void RebuildMesh()
+    {
+        List<CombineInstance> combine = new List<CombineInstance> ();
+
+        foreach(KeyValuePair<BoundingVolume, SupportProxy> e in supportProxy)
+        {
+            if (e.Value.IsActive) {
+                CombineInstance instance = new CombineInstance ();
+                instance.transform = e.Value.SupportRef.transform.localToWorldMatrix;
+                instance.mesh = e.Value.SupportRef.GetComponent<MeshFilter> ().mesh;
+                combine.Add (instance);
+            }
         }
 
+        UnityEngine.Object.Destroy (this.instance.GetComponent<MeshFilter> ().sharedMesh);
+        this.instance.GetComponent<MeshFilter> ().sharedMesh = new Mesh ();
+        this.instance.GetComponent<MeshFilter> ().sharedMesh.CombineMeshes (combine.ToArray());
+        this.instance.gameObject.SetActive( true);
+
+        this.instance.GetComponent<Renderer> ().sharedMaterial = baseMaterial;
 
     }
 
@@ -91,15 +139,22 @@ public class MineTrainSupports : Support
     {
         foreach (BoundingVolume current in this.boundingVolumes)
         {
+            SupportProxy temp = supportProxy [current];
             if (Collisions.Instance.check(current, BoundingVolume.Layers.Buildvolume))
             {
-                current.gameObject.SetActive(false);
+                supportProxy [current] = new SupportProxy (false, temp.SupportRef);
+
+                //current.gameObject.SetActive(false);
             }
             else
             {
-                current.gameObject.SetActive(true);
+                supportProxy [current] = new SupportProxy (true, temp.SupportRef);
+               // supportProxy [current].IsActive = true;
+
+                //current.gameObject.SetActive(true);
             }
         }
+        RebuildMesh ();
     }
 }
 
