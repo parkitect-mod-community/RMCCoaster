@@ -6,10 +6,7 @@ public class Main : IMod
 {
     public string Identifier { get; set; }
 	public static AssetBundleManager AssetBundleManager = null;
-    public static Configuration Configeration = null;
 
-   
-   
     private TrackRiderBinder binder;
 
    public void onEnabled()
