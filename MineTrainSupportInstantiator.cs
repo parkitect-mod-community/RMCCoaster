@@ -16,7 +16,7 @@ public class MineTrainSupportInstantiator : SupportInstantiator
             component.x = current.x;
             component.y = current.minYOnRails;
             component.z = current.z;
-            component.baseMaterial = baseMaterial;
+            component.baseMaterial = meshGenerator.material;
             component.transform.parent = putMeshOnGO.transform;
             component.Initialize ();
 
