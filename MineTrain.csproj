@@ -52,6 +52,9 @@
     <Reference Include="build-160703190121942">
       <HintPath>..\pollend%40TrackedRiderUtility\bin\pollend%40TrackedRiderUtility.dll</HintPath>
     </Reference>
+    <Reference Include="build-160703234630410">
+      <HintPath>..\pollend%40TrackRiderUtil\bin\pollend%40TrackRiderUtil.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
@@ -63,9 +66,7 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AssetBundleManager.cs" />
-    <Compile Include="Configuration.cs" />
     <Compile Include="MinetrainTrackGenerator.cs" />
-    <Compile Include="MineTrainCar.cs" />
     <Compile Include="MineTrainSupportInstantiator.cs" />
     <Compile Include="MineTrainSupports.cs" />
   </ItemGroup>

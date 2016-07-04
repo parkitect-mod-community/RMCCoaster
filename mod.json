@@ -1,1 +1,1 @@
-{"Dependencies":["pollend/TrackedRiderUtility"],"IsDevelopment":true,"IsEnabled":true,"Name":"Mine Train","Project":"MineTrain.csproj"}
+{"Dependencies":["pollend/TrackRiderUtil"],"IsDevelopment":true,"IsEnabled":true,"Name":"Mine Train","Project":"MineTrain.csproj"}
