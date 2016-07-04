@@ -38,7 +38,7 @@ public class Main : IMod
 
         MineTrainSupportInstantiator supportGenerator = binder.RegisterSupportGenerator<MineTrainSupportInstantiator> (trackedRide);
 
-        CoasterCarInstantiator coasterCarInstantiator = binder.RegisterCoasterCarInstaniator<CoasterCarInstantiator> (trackedRide, "MineTrainInstantiator", "Mine Train", 5, 7, 2);
+        CoasterCarInstantiator coasterCarInstantiator = binder.RegisterCoasterCarInstaniator<CoasterCarInstantiator> (trackedRide, "MineTrainInstantiator", "Mine Train Car", 5, 7, 2);
         Color[] CarColors = new Color[] { 
             new Color(68f / 255, 58f / 255, 50f / 255), 
             new Color(176f / 255, 7f / 255, 7f / 255), 
@@ -46,7 +46,7 @@ public class Main : IMod
             new Color(61f / 255, 40f / 255, 19f / 255)
         };
 
-        BaseCar frontCar = binder.RegisterCar<BaseCar> (Main.AssetBundleManager.FrontCarGo, "MineTrainCartFront", .02f, .4f, true,CarColors);
+        BaseCar frontCar = binder.RegisterCar<BaseCar> (Main.AssetBundleManager.FrontCarGo, "MineTrainCarFront", .02f, .4f, true,CarColors);
         BaseCar backCar = binder.RegisterCar<BaseCar> (Main.AssetBundleManager.BackCarGo, "MineTrainCarBack", .02f, .02f, false,CarColors);
 
         frontCar.gameObject.AddComponent<RestraintRotationController>().closedAngles = new Vector3(0,0,120);
@@ -89,7 +89,7 @@ public class Main : IMod
 
     public string Description
     {
-        get { return "Mine Train Coaster"; }
+        get { return "A steel mine train coaster."; }
     }
 
 
