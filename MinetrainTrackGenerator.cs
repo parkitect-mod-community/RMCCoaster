@@ -194,7 +194,7 @@ public class MinetrainTrackGenerator : MeshGenerator
 
     public override Mesh getMesh(GameObject putMeshOnGO)
     {
-        return default(MeshCombiner).start().add(new Extruder[]
+        return MeshCombiner.start().add(new Extruder[]
             {
                 this.leftRailExtruder,
                 this.rightRailExtruder,
