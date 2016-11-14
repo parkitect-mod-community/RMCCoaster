@@ -121,7 +121,7 @@ public class MinetrainTrackGenerator : MeshGenerator
         int crossBeamIndex = 0;
         float pos = 0.0f;
         //adds random wood planks as supports
-        while (pos < trackSegment.getLength ()) {
+        while (pos < trackSegment.getLength (0)) {
             float tForDistance = trackSegment.getTForDistance(pos,0);
 
             Vector3 normal = trackSegment.getNormal(tForDistance);
@@ -136,7 +136,7 @@ public class MinetrainTrackGenerator : MeshGenerator
             Vector3 right = tangetPoint.normalized * (selectedCrossBeamExtruder.width / 2.0f) + Vector3.down * railSize + pivot - binormal * (base.trackWidth + crossBeamOffset) / 2f;
 
             pos += TrackBeamExtruder[(crossBeamIndex + 10) % TrackBeamExtruder.Length].width + .03f;
-            if (pos > trackSegment.getLength ())
+            if (pos > trackSegment.getLength (0))
                 break;
 
             selectedCrossBeamExtruder.extrude (left  , binormal * -1f, normal);
@@ -147,9 +147,9 @@ public class MinetrainTrackGenerator : MeshGenerator
         }
         if (!(trackSegment is Station)) {
             pos = 0.0f;
-            float segments = trackSegment.getLength () / (float)Mathf.RoundToInt (trackSegment.getLength () / this.crossBeamSpacing);
+            float segments = trackSegment.getLength (0) / (float)Mathf.RoundToInt (trackSegment.getLength (0) / this.crossBeamSpacing);
             //inbetween supports for edge of track
-            while (pos < trackSegment.getLength ()) {
+            while (pos < trackSegment.getLength (0)) {
                 float tForDistance = trackSegment.getTForDistance (pos);
 
                 Vector3 normal = trackSegment.getNormal (tForDistance);
