@@ -98,7 +98,7 @@ public class MinetrainTrackGenerator : MeshGenerator
     {
         base.sampleAt(trackSegment, t);
         Vector3 normal = trackSegment.getNormal(t);
-        Vector3 trackPivot = base.getTrackPivot(trackSegment.getPoint(t), normal);
+        Vector3 trackPivot = base.getTrackPivot(trackSegment.getPoint(t,0), normal);
         Vector3 tangentPoint = trackSegment.getTangentPoint(t);
         Vector3 binormal = Vector3.Cross(normal, tangentPoint).normalized;
 
@@ -122,7 +122,7 @@ public class MinetrainTrackGenerator : MeshGenerator
         float pos = 0.0f;
         //adds random wood planks as supports
         while (pos < trackSegment.getLength ()) {
-            float tForDistance = trackSegment.getTForDistance(pos);
+            float tForDistance = trackSegment.getTForDistance(pos,0);
 
             Vector3 normal = trackSegment.getNormal(tForDistance);
             Vector3 tangetPoint = trackSegment.getTangentPoint (tForDistance);
