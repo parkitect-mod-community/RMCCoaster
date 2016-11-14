@@ -150,7 +150,7 @@ public class MinetrainTrackGenerator : MeshGenerator
             float segments = trackSegment.getLength (0) / (float)Mathf.RoundToInt (trackSegment.getLength (0) / this.crossBeamSpacing);
             //inbetween supports for edge of track
             while (pos < trackSegment.getLength (0)) {
-                float tForDistance = trackSegment.getTForDistance (pos);
+                float tForDistance = trackSegment.getTForDistance (pos,0);
 
                 Vector3 normal = trackSegment.getNormal (tForDistance);
                 Vector3 tangetPoint = trackSegment.getTangentPoint (tForDistance);
