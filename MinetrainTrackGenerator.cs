@@ -127,7 +127,7 @@ public class MinetrainTrackGenerator : MeshGenerator
             Vector3 normal = trackSegment.getNormal(tForDistance);
             Vector3 tangetPoint = trackSegment.getTangentPoint (tForDistance);
             Vector3 binormal = Vector3.Cross (normal, tangetPoint).normalized;
-            Vector3 pivot = base.getTrackPivot (trackSegment.getPoint (tForDistance), normal);
+            Vector3 pivot = base.getTrackPivot (trackSegment.getPoint (tForDistance,0), normal);
 
             float crossBeamOffset = BeamSizeVariation [crossBeamIndex % BeamSizeVariation.Length];
             BoxExtruder selectedCrossBeamExtruder = TrackBeamExtruder [(crossBeamIndex + 10) % TrackBeamExtruder.Length];
@@ -155,7 +155,7 @@ public class MinetrainTrackGenerator : MeshGenerator
                 Vector3 normal = trackSegment.getNormal (tForDistance);
                 Vector3 tangetPoint = trackSegment.getTangentPoint (tForDistance);
                 Vector3 binormal = Vector3.Cross (normal, tangetPoint).normalized;
-                Vector3 pivot = base.getTrackPivot (trackSegment.getPoint (tForDistance), normal);
+                Vector3 pivot = base.getTrackPivot (trackSegment.getPoint (tForDistance,0), normal);
 
 
                 float crossBeamOffset = BeamSizeVariation [crossBeamIndex % BeamSizeVariation.Length] * .3f;
