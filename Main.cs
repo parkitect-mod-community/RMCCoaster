@@ -23,7 +23,7 @@ public class Main : IMod
         trackedRide.price = 3600;
         trackedRide.dropsImportanceExcitement = .7f;
         trackedRide.inversionsImportanceExcitement = .67f;
-        trackedRide.averageLatGImportanceIntensity = .7f;
+        trackedRide.averageLatGImportanceExcitement = .7f;
 
         trackedRide.carTypes = new CoasterCarInstantiator[]{ };
 
