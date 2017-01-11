@@ -60,22 +60,22 @@ public class Main : IMod
 
 
 		//deprecatedMappings
-		string oldHash = "ASDFawjebfa8pwh9n3a3h8ank";
-        GameObjectHelper.RegisterDeprecatedMapping ("mine_train_coaster_GO", trackedRide.name);
-        GameObjectHelper.RegisterDeprecatedMapping ("mine_train_coaster_GO"+oldHash, trackedRide.name);
-
-        GameObjectHelper.RegisterDeprecatedMapping ("Mine Train@CoasterCarInstantiator"+oldHash, coasterCarInstantiator.name);
-        GameObjectHelper.RegisterDeprecatedMapping ("Mine Train@CoasterCarInstantiator", coasterCarInstantiator.name);
-
-        GameObjectHelper.RegisterDeprecatedMapping ("MineTrainCar_Car"+oldHash, backCar.name);
-        GameObjectHelper.RegisterDeprecatedMapping ("MineTrainCar_Car", backCar.name);
-
-        GameObjectHelper.RegisterDeprecatedMapping ("MineTrainCar_Front"+oldHash, frontCar.name);
-        GameObjectHelper.RegisterDeprecatedMapping ("MineTrainCar_Front", frontCar.name);
-
 		var trackRideOff = TrackRideHelper.GetTrackedRide("Mine Train Coaster");
-		GameObjectHelper.RegisterDeprecatedMapping(trackedRide.name, trackRideOff.name);
 
+		string oldHash = "ASDFawjebfa8pwh9n3a3h8ank";
+        GameObjectHelper.RegisterDeprecatedMapping ("mine_train_coaster_GO", trackRideOff.name);
+        GameObjectHelper.RegisterDeprecatedMapping ("mine_train_coaster_GO"+oldHash, trackRideOff.name);
+
+        GameObjectHelper.RegisterDeprecatedMapping ("Mine Train@CoasterCarInstantiator"+oldHash, trackRideOff.getCarInstantiator().name);
+        GameObjectHelper.RegisterDeprecatedMapping ("Mine Train@CoasterCarInstantiator", trackRideOff.getCarInstantiator().name);
+
+        GameObjectHelper.RegisterDeprecatedMapping ("MineTrainCar_Car"+oldHash, trackRideOff.getCarInstantiator().carGO.name);
+        GameObjectHelper.RegisterDeprecatedMapping ("MineTrainCar_Car", trackRideOff.getCarInstantiator().carGO.name);
+
+        GameObjectHelper.RegisterDeprecatedMapping ("MineTrainCar_Front"+oldHash, trackRideOff.getCarInstantiator().frontCarGO.name);
+        GameObjectHelper.RegisterDeprecatedMapping ("MineTrainCar_Front", trackRideOff.getCarInstantiator().frontCarGO.name);
+
+		GameObjectHelper.RegisterDeprecatedMapping(trackedRide.name, trackRideOff.name);
 		GameObjectHelper.RegisterDeprecatedMapping(coasterCarInstantiator.name, trackRideOff.getCarInstantiator().name);
 		GameObjectHelper.RegisterDeprecatedMapping(frontCar.name, trackRideOff.getCarInstantiator().frontCarGO.name);
 		GameObjectHelper.RegisterDeprecatedMapping(backCar.name, trackRideOff.getCarInstantiator().carGO.name);
