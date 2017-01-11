@@ -5,21 +5,9 @@ using TrackedRiderUtility;
 
 public class MineTrainSupports : Support
 {
-    protected struct SupportProxy
-    {
-        public bool IsActive;
-        public GameObject SupportRef;
-        public SupportProxy(bool isActive, GameObject refrence)
-        {
-            this.IsActive = isActive;
-            this.SupportRef = refrence;
-        }
-    }
 
     protected GameObject instance;
 
-
-    private Dictionary<BoundingVolume,SupportProxy> supportProxy = new Dictionary<BoundingVolume,SupportProxy> ();
 
     public float x;
 
@@ -28,6 +16,8 @@ public class MineTrainSupports : Support
     public float z;
 
     public int crossedTiles;
+
+
 
     public Material baseMaterial;
     protected override void createInstanceObject ()
@@ -101,7 +91,6 @@ public class MineTrainSupports : Support
             boundingBox2.setPosition(position, support.transform.rotation);
             this.boundingVolumes.Add(boundingBox2);
 
-            supportProxy.Add (boundingBox2, new SupportProxy(true,support));
             support.SetActive (false);
 
 
@@ -116,15 +105,7 @@ public class MineTrainSupports : Support
     {
         List<CombineInstance> combine = new List<CombineInstance> ();
 
-        foreach(KeyValuePair<BoundingVolume, SupportProxy> e in supportProxy)
-        {
-            if (e.Value.IsActive) {
-                CombineInstance instance = new CombineInstance ();
-                instance.transform = e.Value.SupportRef.transform.localToWorldMatrix;
-                instance.mesh = e.Value.SupportRef.GetComponent<MeshFilter> ().mesh;
-                combine.Add (instance);
-            }
-        }
+ 
 
         UnityEngine.Object.Destroy (this.instance.GetComponent<MeshFilter> ().sharedMesh);
         this.instance.GetComponent<MeshFilter> ().sharedMesh = new Mesh ();
@@ -136,27 +117,7 @@ public class MineTrainSupports : Support
     }
 
 
-    protected override void hideUnhide(bool possiblyCollidesWithNewObject)
-    {
-        foreach (BoundingVolume current in this.boundingVolumes)
-        {
-            SupportProxy temp = supportProxy [current];
-            if (Collisions.Instance.check(current, BoundingVolume.Layers.Buildvolume))
-            {
-                supportProxy [current] = new SupportProxy (false, temp.SupportRef);
 
-                //current.gameObject.SetActive(false);
-            }
-            else
-            {
-                supportProxy [current] = new SupportProxy (true, temp.SupportRef);
-               // supportProxy [current].IsActive = true;
-
-                //current.gameObject.SetActive(true);
-            }
-        }
-        RebuildMesh ();
-    }
 }
 
 

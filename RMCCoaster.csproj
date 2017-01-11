@@ -69,9 +69,9 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AssetBundleManager.cs" />
-    <Compile Include="MinetrainTrackGenerator.cs" />
-    <Compile Include="MineTrainSupportInstantiator.cs" />
-    <Compile Include="MineTrainSupports.cs" />
+    <Compile Include="RMCCoasterMeshGenerator.cs" />
+    <Compile Include="SupportInstantiatorStub.cs" />
+    <Compile Include="SupportHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

@@ -17,9 +17,9 @@ public class Main : IMod
 			AssetBundleManager = new AssetBundleManager (this);
 		}
 
-        binder = new TrackRiderBinder ("d41d8cd98f00b204e9800998ecf8427e");
+        binder = new TrackRiderBinder ("b67f7c6f2916f2e0edd368112de5a5da");
 
-        TrackedRide trackedRide = binder.RegisterTrackedRide<TrackedRide> ("Wooden Coaster","MineTrainCoaster", "Mine Train Coaster");
+        TrackedRide trackedRide = binder.RegisterTrackedRide<TrackedRide> ("Mine Train Coaster","MineTrainCoaster", "RMC Coaster");
         trackedRide.price = 3600;
         trackedRide.dropsImportanceExcitement = .7f;
         trackedRide.inversionsImportanceExcitement = .67f;
@@ -28,7 +28,7 @@ public class Main : IMod
         trackedRide.carTypes = new CoasterCarInstantiator[]{ };
 
 
-        MinetrainTrackGenerator meshGenerator =  binder.RegisterMeshGenerator<MinetrainTrackGenerator> (trackedRide);
+		RMCCoasterMeshGenerator meshGenerator =  binder.RegisterMeshGenerator<RMCCoasterMeshGenerator> (trackedRide);
         TrackRideHelper.PassMeshGeneratorProperties (TrackRideHelper.GetTrackedRide ("Wooden Coaster").meshGenerator,trackedRide.meshGenerator);
         trackedRide.meshGenerator.customColors = new Color[] {
             new Color (63f / 255f, 46f / 255f, 37f / 255f, 1), 
@@ -36,7 +36,7 @@ public class Main : IMod
             new Color (90f / 255f, 90f / 255f, 90f / 255f, 1)
         };
 
-        MineTrainSupportInstantiator supportGenerator = binder.RegisterSupportGenerator<MineTrainSupportInstantiator> (trackedRide);
+        SupportStub supportGenerator = binder.RegisterSupportGenerator<SupportStub> (trackedRide);
 
         CoasterCarInstantiator coasterCarInstantiator = binder.RegisterCoasterCarInstaniator<CoasterCarInstantiator> (trackedRide, "MineTrainInstantiator", "Mine Train Car", 5, 7, 2);
         Color[] CarColors = new Color[] { 
@@ -56,31 +56,9 @@ public class Main : IMod
         coasterCarInstantiator.carGO = backCar.gameObject;
 
 
-       // binder.Apply ();
+        binder.Apply ();
 
-
-		//deprecatedMappings
-		var trackRideOff = TrackRideHelper.GetTrackedRide("Mine Train Coaster");
-
-		string oldHash = "ASDFawjebfa8pwh9n3a3h8ank";
-        GameObjectHelper.RegisterDeprecatedMapping ("mine_train_coaster_GO", trackRideOff.name);
-        GameObjectHelper.RegisterDeprecatedMapping ("mine_train_coaster_GO"+oldHash, trackRideOff.name);
-
-        GameObjectHelper.RegisterDeprecatedMapping ("Mine Train@CoasterCarInstantiator"+oldHash, trackRideOff.getCarInstantiator().name);
-        GameObjectHelper.RegisterDeprecatedMapping ("Mine Train@CoasterCarInstantiator", trackRideOff.getCarInstantiator().name);
-
-        GameObjectHelper.RegisterDeprecatedMapping ("MineTrainCar_Car"+oldHash, trackRideOff.getCarInstantiator().carGO.name);
-        GameObjectHelper.RegisterDeprecatedMapping ("MineTrainCar_Car", trackRideOff.getCarInstantiator().carGO.name);
-
-        GameObjectHelper.RegisterDeprecatedMapping ("MineTrainCar_Front"+oldHash, trackRideOff.getCarInstantiator().frontCarGO.name);
-        GameObjectHelper.RegisterDeprecatedMapping ("MineTrainCar_Front", trackRideOff.getCarInstantiator().frontCarGO.name);
-
-		GameObjectHelper.RegisterDeprecatedMapping(trackedRide.name, trackRideOff.name);
-		GameObjectHelper.RegisterDeprecatedMapping(coasterCarInstantiator.name, trackRideOff.getCarInstantiator().name);
-		GameObjectHelper.RegisterDeprecatedMapping(frontCar.name, trackRideOff.getCarInstantiator().frontCarGO.name);
-		GameObjectHelper.RegisterDeprecatedMapping(backCar.name, trackRideOff.getCarInstantiator().carGO.name);
-
-
+	
 	}
 
 
