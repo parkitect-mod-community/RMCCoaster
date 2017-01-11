@@ -55,6 +55,9 @@
     <Reference Include="build-160703234630410">
       <HintPath>..\pollend%40TrackRiderUtil\bin\pollend%40TrackRiderUtil.dll</HintPath>
     </Reference>
+    <Reference Include="build-170110214456829">
+      <HintPath>..\pollend%40TrackRiderUtil\bin\build-170110214456829.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />

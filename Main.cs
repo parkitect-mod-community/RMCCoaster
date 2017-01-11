@@ -55,10 +55,12 @@ public class Main : IMod
         coasterCarInstantiator.frontCarGO = frontCar.gameObject;
         coasterCarInstantiator.carGO = backCar.gameObject;
 
-        binder.Apply ();
 
-        //deprecatedMappings
-        string oldHash = "ASDFawjebfa8pwh9n3a3h8ank";
+       // binder.Apply ();
+
+
+		//deprecatedMappings
+		string oldHash = "ASDFawjebfa8pwh9n3a3h8ank";
         GameObjectHelper.RegisterDeprecatedMapping ("mine_train_coaster_GO", trackedRide.name);
         GameObjectHelper.RegisterDeprecatedMapping ("mine_train_coaster_GO"+oldHash, trackedRide.name);
 
@@ -70,6 +72,13 @@ public class Main : IMod
 
         GameObjectHelper.RegisterDeprecatedMapping ("MineTrainCar_Front"+oldHash, frontCar.name);
         GameObjectHelper.RegisterDeprecatedMapping ("MineTrainCar_Front", frontCar.name);
+
+		var trackRideOff = TrackRideHelper.GetTrackedRide("Mine Train Coaster");
+		GameObjectHelper.RegisterDeprecatedMapping(trackedRide.name, trackRideOff.name);
+
+		GameObjectHelper.RegisterDeprecatedMapping(coasterCarInstantiator.name, trackRideOff.getCarInstantiator().name);
+		GameObjectHelper.RegisterDeprecatedMapping(frontCar.name, trackRideOff.getCarInstantiator().frontCarGO.name);
+		GameObjectHelper.RegisterDeprecatedMapping(backCar.name, trackRideOff.getCarInstantiator().carGO.name);
 
 
 	}

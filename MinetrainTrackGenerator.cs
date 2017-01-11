@@ -192,6 +192,11 @@ public class MinetrainTrackGenerator : MeshGenerator
 
     }
 
+	public override void afterMeshGeneration(TrackSegment4 trackSegment, GameObject putMeshOnGO)
+	{
+		base.afterMeshGeneration(trackSegment, putMeshOnGO);
+	}
+
     public override Mesh getMesh(GameObject putMeshOnGO)
     {
         return MeshCombiner.start().add(new Extruder[]
