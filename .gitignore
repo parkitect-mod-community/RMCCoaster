@@ -265,3 +265,9 @@ sysinfo.txt
 *.apk
 
 Config.json
+
+*.csproj
+*.sln
+steam_workshop-id
+.Parkitect
+.idea/
