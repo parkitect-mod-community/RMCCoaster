@@ -38,7 +38,7 @@ public class MineTrainSupports : Support
 
     }
 
-    protected override void build()
+    protected override bool build()
     {
 
         int index = 0;
@@ -47,13 +47,13 @@ public class MineTrainSupports : Support
         Vector3 position = new Vector3((int) x + 0.5f, y - .2f, (int) z + 0.5f);
         LandPatch terrain = GameController.Instance.park.getTerrain(position);
         if (terrain == null)
-            return;
+            return false;
 
-        int lowest = terrain.getLowestHeight();
+        float lowest = terrain.getLowestHeight();
 
         int start = Mathf.FloorToInt(y) - 1;
         if (start < lowest)
-            return;
+            return false;
 
         for (int i = start; i >= lowest; i--)
         {
@@ -102,6 +102,7 @@ public class MineTrainSupports : Support
         }
 
         RebuildMesh();
+        return true;
     }
 
     private void RebuildMesh()

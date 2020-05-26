@@ -30,7 +30,7 @@ public class RMCCoasterMeshGenerator : MeshGenerator
 		crossBeamInnerExtruder.closeEnds = true;
 
 		collisionMeshExtruder = new BoxExtruder(trackWidth, .03054f);
-		buildVolumeMeshExtruder = new BoxExtruder(this.getRailWidth(), .03054f);
+		buildVolumeMeshExtruder = new BoxExtruder(this.getRailWidth(trackSegment), .03054f);
 		buildVolumeMeshExtruder.closeEnds = true;
 
 		mainDropdownSideSupports = new BoxExtruder(.02f,.08f);
