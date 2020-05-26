@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RMCCoasterMeshGenerator : MeshGenerator
 {
@@ -21,26 +20,23 @@ public class RMCCoasterMeshGenerator : MeshGenerator
 		base.prepare(trackSegment, putMeshOnGO);
 
 		leftBeamExtruder = new BoxExtruder(.04782f, .03054f);
-		this.leftBeamExtruder.setUV(0, 9);
+		leftBeamExtruder.setUV(0, 9);
 		rightBeamExtruder = new BoxExtruder(.04782f, .03054f);
-		this.rightBeamExtruder.setUV(0, 9);
+		rightBeamExtruder.setUV(0, 9);
 
-		this.crossBeamOuterExtruder = new BoxExtruder(.04782f, .1f);
-		this.crossBeamOuterExtruder.closeEnds = true;
-		this.crossBeamInnerExtruder = new BoxExtruder(.04782f, .1f);
-		this.crossBeamInnerExtruder.closeEnds = true;
+		crossBeamOuterExtruder = new BoxExtruder(.04782f, .1f);
+		crossBeamOuterExtruder.closeEnds = true;
+		crossBeamInnerExtruder = new BoxExtruder(.04782f, .1f);
+		crossBeamInnerExtruder.closeEnds = true;
 
-		this.collisionMeshExtruder = new BoxExtruder(base.trackWidth, .03054f);
-		this.buildVolumeMeshExtruder = new BoxExtruder(this.getRailWidth(), .03054f);
-		this.buildVolumeMeshExtruder.closeEnds = true;
+		collisionMeshExtruder = new BoxExtruder(trackWidth, .03054f);
+		buildVolumeMeshExtruder = new BoxExtruder(this.getRailWidth(), .03054f);
+		buildVolumeMeshExtruder.closeEnds = true;
 
-		this.mainDropdownSideSupports = new BoxExtruder(.02f,.08f);
-		this.mainDropdownSideSupports.closeEnds = true;
+		mainDropdownSideSupports = new BoxExtruder(.02f,.08f);
+		mainDropdownSideSupports.closeEnds = true;
 
-		base.setModelExtruders(new Extruder[]{
-			rightBeamExtruder,
-			leftBeamExtruder
-		});
+		setModelExtruders(rightBeamExtruder, leftBeamExtruder);
 	}
 
 
@@ -49,21 +45,21 @@ public class RMCCoasterMeshGenerator : MeshGenerator
 		base.sampleAt(trackSegment, t);
 
 		Vector3 normal = trackSegment.getNormal(t);
-		Vector3 trackPivot = base.getTrackPivot(trackSegment.getPoint(t, 0), normal);
+		Vector3 trackPivot = getTrackPivot(trackSegment.getPoint(t), normal);
 		Vector3 tangentPoint = trackSegment.getTangentPoint(t);
 		Vector3 binormal = Vector3.Cross(normal, tangentPoint).normalized;
 
-		Vector3 leftRail = trackPivot + binormal * base.trackWidth / 2f;
-		Vector3 rightRail = trackPivot - binormal * base.trackWidth / 2f;
-		Vector3 midPoint = trackPivot + normal * this.getCenterPointOffsetY();
+		Vector3 leftRail = trackPivot + binormal * trackWidth / 2f;
+		Vector3 rightRail = trackPivot - binormal * trackWidth / 2f;
+		Vector3 midPoint = trackPivot + normal * getCenterPointOffsetY();
 
-		this.leftBeamExtruder.extrude(leftRail, tangentPoint, normal);
-		this.rightBeamExtruder.extrude(rightRail, tangentPoint, normal);
-		this.collisionMeshExtruder.extrude(trackPivot, tangentPoint, normal);
+		leftBeamExtruder.extrude(leftRail, tangentPoint, normal);
+		rightBeamExtruder.extrude(rightRail, tangentPoint, normal);
+		collisionMeshExtruder.extrude(trackPivot, tangentPoint, normal);
 
-		if (this.liftExtruder != null)
+		if (liftExtruder != null)
 		{
-			this.liftExtruder.extrude(midPoint, tangentPoint, normal);
+			liftExtruder.extrude(midPoint, tangentPoint, normal);
 		}
 	}
 
@@ -72,12 +68,12 @@ public class RMCCoasterMeshGenerator : MeshGenerator
 	{
 		base.afterExtrusion(trackSegment, putMeshOnGO);
 
-		float sample = trackSegment.getLength(0) / (float)Mathf.RoundToInt(trackSegment.getLength(0) / this.crossBeamSpacing);
+		float sample = trackSegment.getLength() / Mathf.RoundToInt(trackSegment.getLength() / crossBeamSpacing);
 		float pos = 0.0f;
 		int index = 0;
-		while (pos < trackSegment.getLength(0))
+		while (pos < trackSegment.getLength())
 		{
-			float tForDistance = trackSegment.getTForDistance(pos, 0);
+			float tForDistance = trackSegment.getTForDistance(pos);
 
 			index++;
 			pos += sample;
@@ -85,7 +81,7 @@ public class RMCCoasterMeshGenerator : MeshGenerator
 			Vector3 normal = trackSegment.getNormal(tForDistance);
 			Vector3 tangentPoint = trackSegment.getTangentPoint(tForDistance);
 			Vector3 binormal = Vector3.Cross(normal, tangentPoint).normalized;
-			Vector3 trackPivot = base.getTrackPivot(trackSegment.getPoint(tForDistance, 0), normal);
+			Vector3 trackPivot = getTrackPivot(trackSegment.getPoint(tForDistance), normal);
 			Vector3 binormalFlat = Vector3.Cross(Vector3.up, tangentPoint).normalized;
 
 
@@ -125,13 +121,13 @@ public class RMCCoasterMeshGenerator : MeshGenerator
 	protected override void Initialize()
 	{
 		base.Initialize();
-		base.trackWidth = .34406f;
-		this.crossBeamSpacing = .5f;
+		trackWidth = .34406f;
+		crossBeamSpacing = .5f;
 	}
 
 	public override Extruder getBuildVolumeMeshExtruder()
 	{
-		return this.buildVolumeMeshExtruder;
+		return buildVolumeMeshExtruder;
 	}
 
 
@@ -142,13 +138,7 @@ public class RMCCoasterMeshGenerator : MeshGenerator
 
 	public override Mesh getMesh(GameObject putMeshOnGO)
 	{
-		return MeshCombiner.start().add(new Extruder[]{
-			this.leftBeamExtruder,
-			this.rightBeamExtruder,
-			this.crossBeamOuterExtruder,
-			this.crossBeamInnerExtruder,
-			this.mainDropdownSideSupports
-		}).end(putMeshOnGO.transform.worldToLocalMatrix);
+		return MeshCombiner.start().add(leftBeamExtruder, rightBeamExtruder, crossBeamOuterExtruder, crossBeamInnerExtruder, mainDropdownSideSupports).end(putMeshOnGO.transform.worldToLocalMatrix);
 	}
 
 	public override float trackOffsetY()
@@ -172,12 +162,12 @@ public class RMCCoasterMeshGenerator : MeshGenerator
 		return 0.15f;
 	}
 
-	public override float getTunnelWidth()
-	{
-		return 0.7f;
-	}
+    public override float getTunnelWidth(TrackSegment4 trackSegment, float t)
+    {
+        return 0.7f;
+    }
 
-	public override float getTunnelHeight()
+    public override float getTunnelHeight()
 	{
 		return 0.95f;
 	}

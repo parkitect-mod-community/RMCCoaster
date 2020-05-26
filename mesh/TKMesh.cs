@@ -5,24 +5,32 @@ namespace mesh
 {
     public class TKMesh
     {
-        private List<Vertex> _vertices = new List<Vertex>();
+        private List<TKVertex> _vertices = new List<TKVertex>();
 
-        struct BMFace {
-
+        struct TKFace {
+            private int Num { get; set; }
         }
 
         public class TKVertex
         {
-            public Vector3 pos { get; set; }
-
+            public Vector3 pos { get; set; } = new Vector3();
+            public List<TKEdge> Edges { get; }= new List<TKEdge>();
         }
 
-        class HalfEdge
+        public class TKDisk
         {
+            public TKVertex prev { get; set; }
+            public TKVertex next { get; set; }
         }
 
-        class Face {
+        public class TKEdge
+        {
+            public TKVertex V1 { get; set; }
+            public TKVertex V2 { get; set; }
 
+            public TKDisk DiskV1Link { get; set; } = null;
+            public TKDisk DiskV2Link { get; set; } = null;
         }
+
     }
 }

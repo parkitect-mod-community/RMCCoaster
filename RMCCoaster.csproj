@@ -1,81 +1,73 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="V4.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B040106D-326E-4041-BF7A-3902AE05E413}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <NoStandardLibraries>false</NoStandardLibraries>
-    <AssemblyName>ClassLibrary</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>/home/michaelpollind/.steam/steam/steamapps/common/Parkitect/Mods/RMCCoaster</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <RootNamespace>HelloMod</RootNamespace>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\Parkitect_Data\Managed\Assembly-CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="UnityEngine">
-      <HintPath>..\..\Parkitect_Data\Managed\UnityEngine.dll</HintPath>
+    <Reference Include="UnityEngine, Culture=neutral, PublicKeyToken=null">
+      <HintPath>.Parkitect/Game/Parkitect_Data/Managed/UnityEngine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\Parkitect_Data\Managed\UnityEngine.UI.dll</HintPath>
+    <Reference Include="UnityEngine.AssetBundleModule, Culture=neutral, PublicKeyToken=null">
+      <HintPath>.Parkitect/Game/Parkitect_Data/Managed/UnityEngine.AssetBundleModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="build-160703190121942">
-      <HintPath>..\pollend%40TrackedRiderUtility\bin\pollend%40TrackedRiderUtility.dll</HintPath>
+    <Reference Include="UnityEngine.CoreModule, Culture=neutral, PublicKeyToken=null">
+      <HintPath>.Parkitect/Game/Parkitect_Data/Managed/UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="build-160703234630410">
-      <HintPath>..\pollend%40TrackRiderUtil\bin\pollend%40TrackRiderUtil.dll</HintPath>
+    <Reference Include="Parkitect, Culture=neutral, PublicKeyToken=null">
+      <HintPath>.Parkitect/Game/Parkitect_Data/Managed/Parkitect.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="build-170110214456829">
-      <HintPath>..\pollend%40TrackRiderUtil\bin\build-170110214456829.dll</HintPath>
+    <Reference Include="UnityEngine.PhysicsModule, Culture=neutral, PublicKeyToken=null">
+      <HintPath>.Parkitect/Game/Parkitect_Data/Managed/UnityEngine.PhysicsModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".gitignore" />
+    <Compile Include="/home/michaelpollind/drive/project/RMCCoaster/RMCCoasterMeshGenerator.cs" />
+    <Compile Include="/home/michaelpollind/drive/project/RMCCoaster/Main.cs" />
+    <Compile Include="/home/michaelpollind/drive/project/RMCCoaster/SupportInstantiatorStub.cs" />
+    <Compile Include="/home/michaelpollind/drive/project/RMCCoaster/SupportHelper.cs" />
+    <Compile Include="/home/michaelpollind/drive/project/RMCCoaster/AssetBundleManager.cs" />
+    <Compile Include="/home/michaelpollind/drive/project/RMCCoaster/MineTrainSupports.cs" />
+    <Compile Include="/home/michaelpollind/drive/project/RMCCoaster/TrackRiderUtil/GameObjectHelper.cs" />
+    <Compile Include="/home/michaelpollind/drive/project/RMCCoaster/TrackRiderUtil/TrackRideHelper.cs" />
+    <Compile Include="/home/michaelpollind/drive/project/RMCCoaster/TrackRiderUtil/TrackRiderBinder.cs" />
+    <Compile Include="/home/michaelpollind/drive/project/RMCCoaster/TrackRiderUtil/BaseCar.cs" />
+    <Compile Include="mesh\Intersection.cs" />
+    <Compile Include="mesh\math\AABB.cs" />
+    <Compile Include="mesh\math\Planef.cs" />
+    <Compile Include="mesh\TKMesh.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mod.json" />
-    <None Include="README.md" />
+    <Content Include="/home/michaelpollind/drive/project/RMCCoaster/assetbundle/MineTrain.manifest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="/home/michaelpollind/drive/project/RMCCoaster/assetbundle/assetbundle.manifest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="/home/michaelpollind/drive/project/RMCCoaster/assetbundle/MineTrain">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="/home/michaelpollind/drive/project/RMCCoaster/assetbundle/assetbundle">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <ContentWithTargetPath Include="./preview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>preview.png</TargetPath>
+    </ContentWithTargetPath>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Main.cs" />
-    <Compile Include="AssetBundleManager.cs" />
-    <Compile Include="RMCCoasterMeshGenerator.cs" />
-    <Compile Include="SupportInstantiatorStub.cs" />
-    <Compile Include="SupportHelper.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
-  <ProjectExtensions>
-    <VisualStudio AllowExistingFolder="true" />
-  </ProjectExtensions>
-  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

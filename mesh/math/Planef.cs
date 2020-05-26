@@ -1,4 +1,7 @@
-$HEADER$namespace $NAMESPACE$
+namespace mesh
 {
-  public class $CLASS$ {$END$}
+    public class Planef
+    {
+
+    }
 }
